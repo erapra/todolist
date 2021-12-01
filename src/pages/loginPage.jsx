@@ -41,12 +41,36 @@ class LoginPage extends Component {
   };
 
   isValiduser = () => {
-    if (!this.state.currentUser.userId) {
-      this.setState({ error: { errUserId: "User ID Mandatory" } });
-      return false;
-    }
-    if (!this.state.currentUser.password) {
-      this.setState({ error: { errPassword: "Password is Mandatory" } });
+    if (!this.state.currentUser.userId || !this.state.currentUser.password) {
+      this.setState((prevState) => {
+        return {
+          error: {
+            errUserId: "",
+            errPassword: "",
+          },
+        };
+      });
+
+      if (!this.state.currentUser.userId) {
+        this.setState((prevState) => {
+          return {
+            error: {
+              ...prevState.error,
+              errUserId: "User ID Mandatory",
+            },
+          };
+        });
+      }
+      if (!this.state.currentUser.password) {
+        this.setState((prevState) => {
+          return {
+            error: {
+              ...prevState.error,
+              errPassword: "Password is Mandatory",
+            },
+          };
+        });
+      }
       return false;
     }
 
@@ -54,8 +78,8 @@ class LoginPage extends Component {
       return user.userId == this.state.currentUser.userId;
     });
 
-    if (!currentUser) {
-      this.setState({ error: { errUserId: "Invalid User" } });
+    if (currentUser && currentUser.length === 0) {
+      this.setState({ error: { errUserId: "Invalid User ID" } });
       return false;
     } else {
       const currentValidUser = currentUser.some(
