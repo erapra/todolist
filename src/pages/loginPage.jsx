@@ -75,7 +75,7 @@ class LoginPage extends Component {
     }
 
     const currentUser = this.state.users.filter((user) => {
-      return user.userId == this.state.currentUser.userId;
+      return user.userId === this.state.currentUser.userId;
     });
 
     if (currentUser && currentUser.length === 0) {
@@ -83,7 +83,7 @@ class LoginPage extends Component {
       return false;
     } else {
       const currentValidUser = currentUser.some(
-        (user) => user.password == this.state.currentUser.password
+        (user) => user.password === this.state.currentUser.password
       );
       if (!currentValidUser) {
         this.setState({ error: { errPassword: "Invalid Password" } });
