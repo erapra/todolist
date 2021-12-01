@@ -1,14 +1,20 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 export default function NewList() {
   const newList = useRef();
   const addList = useDispatch();
+  const [msg, setMsg] = useState("");
 
   const createList = (event) => {
     event.preventDefault();
 
-    addList({ type: "CREATE_LIST", payload: newList.current.value });
+    if (newList.current.value === "") {
+      setMsg("List is Mandatory");
+    } else {
+      setMsg("");
+      addList({ type: "CREATE_LIST", payload: newList.current.value });
+    }
   };
 
   return (
@@ -22,6 +28,8 @@ export default function NewList() {
             placeholder="New List"
             ref={newList}
           />
+
+          {msg ? <small class="form-text text-muted">{msg}</small> : ""}
         </div>
         <button
           type="submit"
