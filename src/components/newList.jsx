@@ -20,7 +20,7 @@ export default function NewList() {
   return (
     <React.Fragment>
       <form className="form-inline">
-        <div className="form-group mx-sm-3 mb-2">
+        <div className="form-group mx-sm-3 mb-2 ">
           <input
             type="text"
             className="form-control"
